@@ -13,6 +13,7 @@ function Landing() {
     <div className='landing-container'>
       <img src={url} className='background-img' alt='Digital Art Background' />
       <div className='navbar'>
+        <Link to="/">Home</Link>
         <Link to="/upload">Upload</Link>
         <Link to="/download">Download</Link>
         <Link to="/relation">Relation</Link>

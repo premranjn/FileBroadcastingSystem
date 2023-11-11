@@ -1,14 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
 import { uploadFile } from './service/api';
+import { Link } from 'react-router-dom';
+
 
 function Upload() {
   const [file, setFile] = useState('');
   const [result, setResult] = useState('');
   const [userNumber, setUserNumber] = useState('');
   const [userId, setUserId] = useState('');
-  const [country, setCountry] = useState('');
-
 
   const fileInputRef = useRef();
 
@@ -24,7 +24,6 @@ function Upload() {
         // -------------------------------
         data.append("number",userId);
         data.append("password",userNumber);
-        data.append("text",country)
 
         const response = await uploadFile(data);
         setResult(response.path);
@@ -38,8 +37,16 @@ function Upload() {
   }
 
   return (
+    
     <div className='container'>
       <img src={url} className='img' />
+      <div className='navbar'>
+        <Link to="/">Home</Link>
+        <Link to="/upload">Upload</Link>
+        <Link to="/download">Download</Link>
+        <Link to="/relation">Relation</Link>
+        <Link to="/login">Login</Link>
+      </div>
       <div className='wrapper'>
         <h1>File Sharing!</h1>
         <p>Broadcast or Send to a group.</p>
@@ -58,13 +65,6 @@ function Upload() {
           onChange={(e) => setUserNumber(e.target.value)}
           placeholder='Enter your secret key'
         />
-        <input
-        type="text"
-        id="country"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-        placeholder='Enter your country'
-      />
         
         <button onClick={() => onUploadClick()}>Upload</button>
         <input
