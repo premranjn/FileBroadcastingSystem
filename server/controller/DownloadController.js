@@ -44,7 +44,6 @@ async function addFileRecord(req, res) {
             link: req.body.link,
             pin: req.body.pin
         };
-        console.log(req.body);
         await files.create(newFile);
 
         return res.status(200).json({message: "file recorded"});

@@ -1,7 +1,9 @@
-import File from '../models/file.js';
-import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
-import axios from 'axios'
+import axios from 'axios';
+
+import File from '../models/file.js';
+import {files} from '../models/sequelize.js';
+
 dotenv.config();
 
 export const uploadImage = async (request, response) => {
@@ -12,18 +14,18 @@ export const uploadImage = async (request, response) => {
     
     try {
         const file = await File.create(fileObj); //saves to db
-        console.log(request.body.password[0]);
-        const postData = {
+
+        const newFile = {
             owner: request.body.number, // replace with the actual owner number
-            link: `http://192.168.177.23:${process.env.PORT}/file/${file._id}`, // replace with the correct file link
+            link: `http://${process.env.HOST}:${process.env.PORT}/file/${file._id}`, // replace with the correct file link
             pin: request.body.password, // replace with the actual pin number
-            country: request.body.country
         };
+        await files.create(newFile);
     
         // Make a POST request to the "/download/update" route
-        const updateResponse = await axios.post('http://localhost:8000/download/update', postData);
-    
-        response.status(200).json({ path: `http://localhost:${process.env.PORT}/file/${file._id}`});
+        // const updateResponse = await axios.post('http://localhost:8000/download/update', postData);
+
+        response.status(200).json({ path: `http://192.168.177.23:${process.env.PORT}/file/${file._id}`});
     } catch (error) {
         console.error(error.message);
         response.status(500).json({ error: error.message });
@@ -38,7 +40,7 @@ export const getImage = async (request, response) => {
 
         await file.save();
 
-        response.download(file.path, "abc.mp4");
+        response.download(file.path, "file");
     } catch (error) {
         console.error(error.message);
         response.status(500).json({ msg: error.message });

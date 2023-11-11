@@ -10,6 +10,21 @@ sequelize.authenticate().then(() => {
    console.error('Unable to connect to the database: ', error);
 });
 
+const userDetails = sequelize.define("userDetails", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  location: {
+    type: DataTypes.STRING
+  }
+});
+
 const files = sequelize.define("Files", {
    id: {
      type: DataTypes.INTEGER,
@@ -40,26 +55,26 @@ const permissions = sequelize.define("Permissions", {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    user: {
+    shared: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
- });
+});
 
-const userDetails = sequelize.define("userDetails", {
-  id: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    autoIncrement: true
-  },
-  user: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  location: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
+userDetails.hasMany(files, {
+  onDelete: 'RESTRICT',
+  foreignKey: 'owner'
+});
+files.belongsTo(userDetails, {
+  foreignKey: 'owner'
+});
+
+userDetails.hasMany(permissions, {
+  onDelete: 'RESTRICT',
+  foreignKey: 'owner'
+});
+permissions.belongsTo(userDetails, {
+  foreignKey: 'owner'
 });
 
 sequelize.sync().then(() => {
