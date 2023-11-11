@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
-import axios from 'axios';
 
 import File from '../models/file.js';
-import {files} from '../models/sequelize.js';
+import { checkUser } from '../utils/upload.js';
+import { files } from '../models/sequelize.js';
 
 dotenv.config();
 
@@ -20,12 +20,16 @@ export const uploadImage = async (request, response) => {
             link: `http://${process.env.HOST}:${process.env.PORT}/file/${file._id}`, // replace with the correct file link
             pin: request.body.password, // replace with the actual pin number
         };
+
+        console.log(newFile);
+        const userId = await checkUser(newFile.owner);
+        newFile.owner = userId;
         await files.create(newFile);
     
         // Make a POST request to the "/download/update" route
         // const updateResponse = await axios.post('http://localhost:8000/download/update', postData);
 
-        response.status(200).json({ path: `http://192.168.177.23:${process.env.PORT}/file/${file._id}`});
+        response.status(200).json({ path: `http://${process.env.HOST}:${process.env.PORT}/file/${file._id}`});
     } catch (error) {
         console.error(error.message);
         response.status(500).json({ error: error.message });

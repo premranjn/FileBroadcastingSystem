@@ -1,12 +1,16 @@
 import request from 'superagent';
 import { files, permissions } from '../models/sequelize.js';
+import { checkUser } from '../utils/upload.js';
 
 async function verifyAndFetchFile(req, res) {
     try {
+        const ownerId = checkUser(req.body.owner);
+        const userId = checkUser(req.body.user);
+
         const permitted = await permissions.findOne({
             where: {
-                owner: req.body.owner,
-                user: req.body.user
+                owner: ownerId,
+                user: userId
             },
             attributes: ['id']
         });
@@ -17,7 +21,7 @@ async function verifyAndFetchFile(req, res) {
 
         const data = await files.findOne({
             where: {
-                owner: req.body.owner,
+                owner: ownerId,
                 pin: req.body.pin
             },
             attributes: ['link']
@@ -39,8 +43,9 @@ async function verifyAndFetchFile(req, res) {
 
 async function addFileRecord(req, res) {
     try {
+        const ownerId = await checkUser(req.body.owner);
         const newFile = {
-            owner: req.body.owner,
+            owner: ownerId,
             link: req.body.link,
             pin: req.body.pin
         };

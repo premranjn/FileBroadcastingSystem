@@ -1,5 +1,5 @@
 import express from 'express';
-import upload from '../utils/upload.js';
+import { upload } from '../utils/upload.js';
 import { uploadImage, getImage } from '../controller/image-controller.js';
 import downloadRouter from '../routes/Download.js';
 import adduserRouter from '../routes/Adduser.js'
