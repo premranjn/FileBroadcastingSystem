@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
 import { uploadFile } from './service/api';
+import { Link } from 'react-router-dom';
+
 
 function Download() {
   const [file, setFile] = useState('');
@@ -39,6 +41,13 @@ function Download() {
   return (
     <div className='container'>
       <img src={url} className='img' />
+      <div className='navbar'>
+        <Link to="/">Home</Link>
+        <Link to="/upload">Upload</Link>
+        <Link to="/download">Download</Link>
+        <Link to="/relation">Relation</Link>
+        <Link to="/login">Login</Link>
+      </div>
       <div className='wrapper'>
         <h1>Download Page!</h1>
         <p>Broadcast or Send to a group.</p>

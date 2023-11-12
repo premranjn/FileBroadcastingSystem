@@ -1,6 +1,6 @@
 import React from 'react';
 import './Landing.css'; // You can create a CSS file for styling
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 function Landing() {
@@ -8,12 +8,15 @@ function Landing() {
   // const url = 'https://i.postimg.cc/Twc0HdDX/photo-2023-11-11-22-20-25.jpg';
   const url = 'https://i.postimg.cc/nzkCCkrq/IMG-20230905-101613-02-2.jpg';
   // const url = 'https://i.postimg.cc/yxDssXZ1/IMG-20230905-101613-02-3.jpg';
+  const location = useLocation();
+
+  const isHomePage = location.pathname === '/';
 
   return (
     <div className='landing-container'>
       <img src={url} className='background-img' alt='Digital Art Background' />
       <div className='navbar'>
-        <Link to="/">Home</Link>
+        {!isHomePage && <Link to="/">Home</Link>}
         <Link to="/upload">Upload</Link>
         <Link to="/download">Download</Link>
         <Link to="/relation">Relation</Link>
