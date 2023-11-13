@@ -4,6 +4,6 @@ import verifyAndFetchFile from '../controller/DownloadController.js';
 
 const downloadRouter = express.Router();
 
-downloadRouter.post('/', verifyAndFetchFile);
+downloadRouter.post('/verify', verifyAndFetchFile);
 
 export default downloadRouter;

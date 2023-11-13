@@ -4,6 +4,6 @@ import checkAndAddUser from '../controller/AddUserController.js';
 
 const adduserRouter = express.Router();
 
-adduserRouter.post('/', checkAndAddUser);
+adduserRouter.post('/userManager', checkAndAddUser);
 
 export default adduserRouter;

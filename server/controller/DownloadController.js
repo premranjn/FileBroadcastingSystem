@@ -4,13 +4,20 @@ import { checkUser } from '../utils/upload.js';
 
 async function verifyAndFetchFile(req, res) {
     try {
-        const ownerId = checkUser(req.body.owner);
-        const userId = checkUser(req.body.user);
+        // permission - class, username
+        //  if(permission)
+                // use files to find link using className, pin
+                // download link
+        console.log(req.body);
+        const userId = await checkUser(req.body.studentId);
+        const className = req.body.className;
+        const passKey = req.body.passkey;
+        console.log(userId,className);
 
         const permitted = await permissions.findOne({
             where: {
-                owner: ownerId,
-                user: userId
+                userId: userId,
+                className: className 
             },
             attributes: ['id']
         });
@@ -21,17 +28,17 @@ async function verifyAndFetchFile(req, res) {
 
         const data = await files.findOne({
             where: {
-                owner: ownerId,
-                pin: req.body.pin
+                className: className,
+                pin: passKey
             },
             attributes: ['link']
         });
         
         if (data === null) {
-            return res.status(401).json({message: 'invalid pin or link'});
+            return res.status(401).json({message: 'invalid pin or class'});
         }
 
-        res.set('Content-disposition', 'attachment; filename=file');
+        res.set('attachment; filename=file');
 
         return request(data.link).pipe(res);
 
