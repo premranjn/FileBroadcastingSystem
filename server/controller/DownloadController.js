@@ -31,7 +31,7 @@ async function verifyAndFetchFile(req, res) {
             return res.status(401).json({message: 'invalid pin or link'});
         }
 
-        res.set('attachment; filename=file');
+        res.set('Content-disposition', 'attachment; filename=file');
 
         return request(data.link).pipe(res);
 
@@ -41,21 +41,4 @@ async function verifyAndFetchFile(req, res) {
     }
 }
 
-async function addFileRecord(req, res) {
-    try {
-        const ownerId = await checkUser(req.body.owner);
-        const newFile = {
-            owner: ownerId,
-            link: req.body.link,
-            pin: req.body.pin
-        };
-        await files.create(newFile);
-
-        return res.status(200).json({message: "file recorded"});
-    } catch(err) {
-        console.log(err);
-        return res.status(500).json({message: 'something went wrong'});
-    }
-}
-
-export {verifyAndFetchFile, addFileRecord};
+export default verifyAndFetchFile;

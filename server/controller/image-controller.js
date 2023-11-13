@@ -10,7 +10,7 @@ export const uploadImage = async (request, response) => {
     const fileObj = {
         path: request.file.path,
         name: request.file.originalname,
-    }
+    };
     
     try {
         const file = await File.create(fileObj); //saves to db
@@ -30,9 +30,6 @@ export const uploadImage = async (request, response) => {
         }
         newFile.owner = userId;
         await files.create(newFile);
-    
-        // Make a POST request to the "/download/update" route
-        // const updateResponse = await axios.post('http://localhost:8000/download/update', postData);
 
         response.status(200).json({ path: `http://${process.env.HOST}:${process.env.PORT}/file/${file._id}`});
     } catch (error) {

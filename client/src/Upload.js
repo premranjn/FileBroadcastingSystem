@@ -26,7 +26,6 @@ function Upload() {
         data.append("password",userNumber);
 
         const response = await uploadFile(data);
-        console.log(response);
         setResult(response.path);
       }
     }

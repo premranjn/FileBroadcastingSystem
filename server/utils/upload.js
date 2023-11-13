@@ -12,14 +12,14 @@ async function checkUser(username) {
             },
             attributes: ['id']
         });
+
         if (userInfo === null) {
             return null;
         }
-
         return userInfo.id;
-
     } catch (error) {
         console.error(error.message);
+        return null;
     }
 }
 

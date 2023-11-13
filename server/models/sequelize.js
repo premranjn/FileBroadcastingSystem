@@ -20,8 +20,10 @@ const userDetails = sequelize.define("userDetails", {
     type: DataTypes.STRING,
     allowNull: false
   },
-  location: {
-    type: DataTypes.STRING
+  role: {
+    type: Sequelize.ENUM,
+    values: ['teacher', 'student'],
+    allowNull: false
   }
 });
 
@@ -31,8 +33,8 @@ const files = sequelize.define("Files", {
      primaryKey: true,
      autoIncrement: true
    },
-   owner: {
-     type: DataTypes.INTEGER,
+   className: {
+     type: DataTypes.STRING,
      allowNull: false
    },
    pin: {
@@ -51,30 +53,22 @@ const permissions = sequelize.define("Permissions", {
       primaryKey: true,
       autoIncrement: true
     },
-    owner: {
-      type: DataTypes.INTEGER,
+    className: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    shared: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
 });
 
-userDetails.hasMany(files, {
-  onDelete: 'RESTRICT',
-  foreignKey: 'owner'
-});
-files.belongsTo(userDetails, {
-  foreignKey: 'owner'
-});
-
 userDetails.hasMany(permissions, {
   onDelete: 'RESTRICT',
-  foreignKey: 'owner'
+  foreignKey: 'userId'
 });
 permissions.belongsTo(userDetails, {
-  foreignKey: 'owner'
+  foreignKey: 'userId'
 });
 
 sequelize.sync().then(() => {
