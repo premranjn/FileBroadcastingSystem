@@ -13,7 +13,6 @@ function Upload() {
 
   const fileInputRef = useRef();
 
-  // const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
   const url = 'https://i.postimg.cc/4xHqv6qc/octa-1.jpg';
 
   useEffect(() => {
@@ -23,8 +22,8 @@ function Upload() {
         data.append("name", file.name);
         data.append("file", file);
         // -------------------------------
-        data.append("text",teacherId);
-        data.append("password",passkey);
+        data.append("className", className);
+        data.append("pin",passkey);
 
         const response = await uploadFile(data);
         setResult(response.path);

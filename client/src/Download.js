@@ -13,7 +13,7 @@ function Download() {
   
   const handleDownload = async () => {
     try{
-      const response = await axios.post('http://localhost:8000/download/verify',{
+      const response = await axios.post('http://localhost:8000/download',{
         studentId,
         className,
         passkey,

@@ -38,7 +38,7 @@ async function verifyAndFetchFile(req, res) {
             return res.status(401).json({message: 'invalid pin or class'});
         }
 
-        res.set('attachment; filename=file');
+        res.set('Content-Disposition', 'attachment; filename=file');
 
         return request(data.link).pipe(res);
 

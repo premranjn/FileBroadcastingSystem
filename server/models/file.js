@@ -14,10 +14,10 @@ const FileSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    userId: {
-        type: Number
+    className: {
+        type: String
     },
-    userNumber: {
+    pin: {
         type: Number
     }
 })

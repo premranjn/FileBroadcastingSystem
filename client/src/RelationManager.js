@@ -16,7 +16,7 @@ function Relation() {
 
   const updateRelation = async () => {
     try {
-        const response = await axios.post('http://localhost:8000/adduser/userManager', {
+        const response = await axios.post('http://localhost:8000/manage', {
           className,
           userId,
         });
