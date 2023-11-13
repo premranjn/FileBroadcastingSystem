@@ -23,6 +23,11 @@ export const uploadImage = async (request, response) => {
 
         console.log(newFile);
         const userId = await checkUser(newFile.owner);
+        console.log(userId);
+        console.log("hello");
+        if (userId === null) {
+            return response.status(200).json({path: "not uploaded", error: "user doesn't exist"});
+        }
         newFile.owner = userId;
         await files.create(newFile);
     
@@ -32,7 +37,7 @@ export const uploadImage = async (request, response) => {
         response.status(200).json({ path: `http://${process.env.HOST}:${process.env.PORT}/file/${file._id}`});
     } catch (error) {
         console.error(error.message);
-        response.status(500).json({ error: error.message });
+        response.status(500).json({ path: "not uploaded", error: error.message });
     }
 }
 

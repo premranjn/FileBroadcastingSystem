@@ -26,6 +26,7 @@ function Upload() {
         data.append("password",userNumber);
 
         const response = await uploadFile(data);
+        console.log(response);
         setResult(response.path);
       }
     }
@@ -52,11 +53,11 @@ function Upload() {
         <p>Broadcast or Send to a group.</p>
         
         <input
-          type="number"
+          type="text"
           id="userId"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
-          placeholder='Enter your User Id'
+          placeholder='Enter your User name'
         />
         <input
           type="password"
