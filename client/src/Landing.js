@@ -10,13 +10,15 @@ function Landing() {
   // const url = 'https://i.postimg.cc/yxDssXZ1/IMG-20230905-101613-02-3.jpg';
   const location = useLocation();
 
-  const isHomePage = location.pathname === '/';
+  // const isHomePage = location.pathname === '/';
 
   return (
     <div className='landing-container'>
       <img src={url} className='background-img' alt='Digital Art Background' />
       <div className='navbar'>
-        {!isHomePage && <Link to="/">Home</Link>}
+        {/* {!isHomePage && <Link to="/">Home</Link>} */}
+        
+        <Link to="/">Home</Link>
         <Link to="/upload">Upload</Link>
         <Link to="/download">Download</Link>
         <Link to="/relation">Relation</Link>

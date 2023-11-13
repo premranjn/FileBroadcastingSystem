@@ -10,6 +10,8 @@ import Landing from './Landing';
 import Relation from './RelationManager';
 import reportWebVitals from './reportWebVitals';
 
+
+
 const root = createRoot(document.getElementById('root'));
 
 // Render the components with React Router

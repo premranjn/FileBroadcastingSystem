@@ -2,42 +2,34 @@ import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
 import { uploadFile } from './service/api';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Download() {
-  const [file, setFile] = useState('');
   const [result, setResult] = useState('');
-  const [userNumber, setUserNumber] = useState('');
-  const [userId, setUserId] = useState('');
-  const [country, setCountry] = useState('');
-
-
-  const fileInputRef = useRef();
-
-  const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
-
-  useEffect(() => {
-    const getImage = async () => {
-      if (file) {
-        const data = new FormData();
-        data.append("name", file.name);
-        data.append("file", file);
-        // -------------------------------
-        data.append("number",userId);
-        data.append("password",userNumber);
-        data.append("text",country)
-
-        const response = await uploadFile(data);
-        setResult(response.path);
-      }
+  const [studentId, setStudentId] = useState('');
+  const [className, setClassname] = useState('');
+  const [passkey, setPasskey] = useState('');
+  
+  const handleDownload = async () => {
+    try{
+      const response = await axios.post('http://localhost:8000/download/verify',{
+        studentId,
+        className,
+        passkey,
+      });
+      console.log('Backend Response:', response.data);
+    }catch(error){
+      console.error('Error sending to backend:', error);
     }
-    getImage();
-  }, [file])
-
-  const onUploadClick = () => {
-    fileInputRef.current.click();
-  }
-
+    
+  };
+  
+  // const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
+  const url = 'https://scontent.fmaa8-1.fna.fbcdn.net/v/t1.6435-9/117889307_1671835459633736_2521845204123450989_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=4dc865&_nc_ohc=7j73ThyoyeEAX8JX_pm&_nc_ht=scontent.fmaa8-1.fna&oh=00_AfA1hqpxvsf5p8z2rKu1bLy72Ykysdde0OFTrYtZmDwn1Q&oe=657955D5'
+  
+  
+  
   return (
     <div className='container'>
       <img src={url} className='img' />
@@ -49,38 +41,34 @@ function Download() {
         <Link to="/login">Login</Link>
       </div>
       <div className='wrapper'>
-        <h1>Download Page!</h1>
-        <p>Broadcast or Send to a group.</p>
+        <h1>Download!</h1>
+        <p>Download Files Shared to your Class.</p>
         
         <input
-          type="number"
-          id="userId"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          placeholder='Enter your User Id'
-        />
-        <input
-          type="password"
-          id="userNumber"
-          value={userNumber}
-          onChange={(e) => setUserNumber(e.target.value)}
-          placeholder='Enter your secret key'
+          type="text"
+          id="studentId"
+          value={studentId}
+          onChange={(e) => setStudentId(e.target.value)}
+          placeholder='Enter your Student Id'
         />
         <input
         type="text"
-        id="country"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-        placeholder='Enter your country'
+        id="className"
+        value={className}
+        onChange={(e) => setClassname(e.target.value)}
+        placeholder='Enter your Classroom'
       />
-        
-        <button onClick={() => onUploadClick()}>Upload</button>
         <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={(e) => setFile(e.target.files[0])}
+          type="password"
+          id="passkey"
+          value={passkey}
+          onChange={(e) => setPasskey(e.target.value)}
+          placeholder='Enter the File Passkey'
         />
+        
+        
+        <button onClick={handleDownload}>Download File</button>
+        
         <a href={result} target='_blank'>{result}</a> 
       </div>
     </div>

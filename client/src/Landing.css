@@ -20,7 +20,7 @@
     top: 30px;
     left: 67%;
     display: flex;
-    gap: 18px;
+    gap: 20px;
     z-index: 1;
   }
   
@@ -30,8 +30,18 @@
     text-align: right;
     font-size: 20px;
     font-weight: bold;
+
+  }
+
+  a:hover {
+    /* background-color: #555; */
+      /* color: #39A7FF; */
+      transition: background-color 0.3s, color 0.3s;
+      transition: transform 0.5s ease; /* Add a smooth transition effect */
+      transform: scale(1.1); /* Adjust the scale factor as needed */
   }
   
+
   .content-wrapper {
     text-align: center;
     position: absolute;

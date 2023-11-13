@@ -1,40 +1,29 @@
 import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
-import { uploadFile } from './service/api';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Relation() {
-  const [file, setFile] = useState('');
   const [result, setResult] = useState('');
-  const [userNumber, setUserNumber] = useState('');
-  const [userId, setUserId] = useState('');
-  const [country, setCountry] = useState('');
+  const [userId,setStudentId] = useState('');
+  const [className,setClassName] = useState('');
 
 
-  const fileInputRef = useRef();
 
-  const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
+  // const url = 'https://scontent-bom1-1.xx.fbcdn.net/v/t39.30808-6/277465105_2132765590207385_4886455866660821286_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DaMUEGOZiiEAX8vK_7Y&_nc_ht=scontent-bom1-1.xx&oh=00_AfDrR1HhB3bYbdwn6ojVfwlemYHAGTInToWtZCLBVM2-Jw&oe=65578841';
+  // const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
+  const url = 'https://scontent.fmaa8-1.fna.fbcdn.net/v/t1.6435-9/117717500_1671836616300287_4208783604533456706_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=4dc865&_nc_ohc=nhh_74841VYAX-nUm-b&_nc_ht=scontent.fmaa8-1.fna&oh=00_AfAEQoeCQRuTGB0-0srGJBl4FbHcZVapc0gKXTD9GmN6hQ&oe=65794F30';
 
-  useEffect(() => {
-    const getImage = async () => {
-      if (file) {
-        const data = new FormData();
-        data.append("name", file.name);
-        data.append("file", file);
-        // -------------------------------
-        data.append("number",userId);
-        data.append("password",userNumber);
-        data.append("text",country)
-
-        const response = await uploadFile(data);
-        setResult(response.path);
-      }
+  const updateRelation = async () => {
+    try {
+        const response = await axios.post('http://localhost:8000/adduser/userManager', {
+          className,
+          userId,
+        });
+        console.log('Backend Response', response.data);
+    }catch(error){
+      console.log('Error Updating Relation to backedn', error);
     }
-    getImage();
-  }, [file])
-
-  const onUploadClick = () => {
-    fileInputRef.current.click();
   }
 
   return (
@@ -48,38 +37,25 @@ function Relation() {
         <Link to="/login">Login</Link>
       </div>
       <div className='wrapper'>
-        <h1>Download Page!</h1>
+        <h1>Add Page!</h1>
         <p>Broadcast or Send to a group.</p>
         
         <input
-          type="number"
-          id="userId"
+          type="text"
+          id="stduentId"
           value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          placeholder='Enter your User Id'
+          onChange={(e) => setStudentId(e.target.value)}
+          placeholder="Student's Id you want to add"
         />
         <input
-          type="password"
-          id="userNumber"
-          value={userNumber}
-          onChange={(e) => setUserNumber(e.target.value)}
-          placeholder='Enter your secret key'
+          type="text"
+          id="className"
+          value={className}
+          onChange={(e) => setClassName(e.target.value)}
+          placeholder='Class you want to add the Student to'
         />
-        <input
-        type="text"
-        id="country"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-        placeholder='Enter your country'
-      />
         
-        <button onClick={() => onUploadClick()}>Upload</button>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={(e) => setFile(e.target.files[0])}
-        />
+        <button onClick={updateRelation}>Add Student</button>
         <a href={result} target='_blank'>{result}</a> 
       </div>
     </div>

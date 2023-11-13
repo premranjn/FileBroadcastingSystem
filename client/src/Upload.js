@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 function Upload() {
   const [file, setFile] = useState('');
   const [result, setResult] = useState('');
-  const [userNumber, setUserNumber] = useState('');
-  const [userId, setUserId] = useState('');
+  const [passkey, SetPasskey] = useState('');
+  const [teacherId, setTeacherId] = useState('');
+  const [className, setClassName] = useState('');
 
   const fileInputRef = useRef();
 
@@ -22,8 +23,8 @@ function Upload() {
         data.append("name", file.name);
         data.append("file", file);
         // -------------------------------
-        data.append("number",userId);
-        data.append("password",userNumber);
+        data.append("text",teacherId);
+        data.append("password",passkey);
 
         const response = await uploadFile(data);
         setResult(response.path);
@@ -48,25 +49,32 @@ function Upload() {
         <Link to="/login">Login</Link>
       </div>
       <div className='wrapper'>
-        <h1>File Sharing!</h1>
-        <p>Broadcast or Send to a group.</p>
+        <h1>Upload!</h1>
+        <p>Broadcast or Send to your Class.</p>
         
         <input
           type="text"
-          id="userId"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          placeholder='Enter your User name'
+          id="teacherId"
+          value={teacherId}
+          onChange={(e) => setTeacherId(e.target.value)}
+          placeholder='Enter your Teacher Id'
+        />
+        <input
+          type="text"
+          id="className"
+          value={className}
+          onChange={(e) => setClassName(e.target.value)}
+          placeholder='Enter the Class to send'
         />
         <input
           type="password"
-          id="userNumber"
-          value={userNumber}
-          onChange={(e) => setUserNumber(e.target.value)}
-          placeholder='Enter your secret key'
+          id="passkey"
+          value={passkey}
+          onChange={(e) => SetPasskey(e.target.value)}
+          placeholder='Set the File Passkey'
         />
         
-        <button onClick={() => onUploadClick()}>Upload</button>
+        <button onClick={() => onUploadClick()}>Upload File</button>
         <input
           type="file"
           ref={fileInputRef}

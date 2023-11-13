@@ -10,3 +10,4 @@ export const uploadFile = async (data) => {
         console.log('Error while calling the API ', error.message);
     }
 }
+

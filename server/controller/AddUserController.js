@@ -3,7 +3,7 @@ import { checkUser } from '../utils/upload.js';
 
 async function checkAndAddUser(req, res) {
     try {
-        const user = checkUser(req.body.userName);
+        const user = await checkUser(req.body.userId);
         if (user === null) {
             return res.status(401).json({message: 'user doesn\'t exist'});
         }
