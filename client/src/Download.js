@@ -17,8 +17,22 @@ function Download() {
         studentId,
         className,
         passkey,
+      },{
+        responseType: 'arraybuffer', // or 'blob'
       });
-      console.log('Backend Response:', response.data);
+      const blob = new Blob([response.data]);
+
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+
+      downloadLink.download = 'downloaded_file';
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+
+      document.body.removeChild(downloadLink);
+      URL.revokeObjectURL(downloadLink.href).revokeObjectURL(url);
+
     }catch(error){
       console.error('Error sending to backend:', error);
     }
