@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 function Landing() {
   const url = 'https://i.postimg.cc/nzkCCkrq/IMG-20230905-101613-02-2.jpg';
-  // const url = 'https://i.postimg.cc/ZK2jPCs9/Untitled-design.png';
+  // const url = 'https://i.postimg.cc/qRBy8T8D/NITT.png';
   const location = useLocation();
 
   // const isHomePage = location.pathname === '/';
@@ -24,7 +24,7 @@ function Landing() {
       </div>
       <div className='content-wrapper'>
         <h1>Welcome to Our Digital World</h1>
-        <p>Explore the possibilities with our digital platform.</p>
+        <p>Explore Sharing with immense possibilities with our digital platform.</p>
         <Link to ="/login"><button className='login-button'>Login</button></Link>
       </div>
     </div>

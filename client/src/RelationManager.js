@@ -42,8 +42,8 @@ function Relation() {
         <Link to="/login">Login</Link>
       </div>
       <div className='wrapper'>
-        <h1>Add Page!</h1>
-        <p>Broadcast or Send to a group.</p>
+        <h1>Manage Clusture!</h1>
+        <p>Add Students to a clusture.</p>
         
         <input
           type="text"
