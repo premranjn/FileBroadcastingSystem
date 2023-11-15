@@ -10,6 +10,8 @@ function Download() {
   const [studentId, setStudentId] = useState('');
   const [className, setClassname] = useState('');
   const [passkey, setPasskey] = useState('');
+  const [DownloadError, setDownloadError] = useState(false); // State for handling upload errors
+  const [DownloadSuccess, setDownloadSuccess] = useState(false);
   
   const handleDownload = async () => {
     try{
@@ -21,7 +23,6 @@ function Download() {
         responseType: 'arraybuffer', // or 'blob'
       });
       const blob = new Blob([response.data]);
-
       const downloadLink = document.createElement('a');
       downloadLink.href = URL.createObjectURL(blob);
 
@@ -29,11 +30,15 @@ function Download() {
 
       document.body.appendChild(downloadLink);
       downloadLink.click();
-
+      
       document.body.removeChild(downloadLink);
-      URL.revokeObjectURL(downloadLink.href).revokeObjectURL(url);
+      console.log(1);
+      console.log(2);
+      setDownloadSuccess('Download Successful :) Check your download directory.');
+      setDownloadError(null);
 
     }catch(error){
+      setDownloadError('Download Error!,Check Credentials :(');
       console.error('Error sending to backend:', error);
     }
     
@@ -82,7 +87,12 @@ function Download() {
         
         
         <button onClick={handleDownload}>Download File</button>
-        
+        {DownloadError && (
+        <p className={`error-message ${DownloadError ? 'show' : ''}`}>{DownloadError}</p>
+        )}
+        {DownloadSuccess && (
+          <p className={`success-message ${DownloadSuccess ? 'show' : ''}`}>{DownloadSuccess}</p>
+        )}
         <a href={result} target='_blank'>{result}</a> 
       </div>
     </div>

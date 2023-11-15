@@ -7,6 +7,8 @@ function Relation() {
   const [result, setResult] = useState('');
   const [userId,setStudentId] = useState('');
   const [className,setClassName] = useState('');
+  const [uploadError, setUploadError] = useState(null); // State for handling upload errors
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
 
 
@@ -20,9 +22,12 @@ function Relation() {
           className,
           userId,
         });
+        setUploadSuccess(`${userId} Successfully added to ${className}`); // Set upload success
         console.log('Backend Response', response.data);
+
     }catch(error){
       console.log('Error Updating Relation to backedn', error);
+      setUploadError('Operation Failed, Please try again.');
     }
   }
 
@@ -56,6 +61,12 @@ function Relation() {
         />
         
         <button onClick={updateRelation}>Add Student</button>
+        {uploadError && (
+        <p className={`error-message ${uploadError ? 'show' : ''}`}>{uploadError}</p>
+        )}
+        {uploadSuccess && (
+          <p className={`success-message ${uploadSuccess ? 'show' : ''}`}>{uploadSuccess}</p>
+        )}
         <a href={result} target='_blank'>{result}</a> 
       </div>
     </div>

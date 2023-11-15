@@ -4,10 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 
 function Landing() {
-  // const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
-  // const url = 'https://i.postimg.cc/Twc0HdDX/photo-2023-11-11-22-20-25.jpg';
   const url = 'https://i.postimg.cc/nzkCCkrq/IMG-20230905-101613-02-2.jpg';
-  // const url = 'https://i.postimg.cc/yxDssXZ1/IMG-20230905-101613-02-3.jpg';
+  // const url = 'https://i.postimg.cc/ZK2jPCs9/Untitled-design.png';
   const location = useLocation();
 
   // const isHomePage = location.pathname === '/';

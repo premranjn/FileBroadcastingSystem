@@ -10,25 +10,34 @@ function Upload() {
   const [passkey, SetPasskey] = useState('');
   const [teacherId, setTeacherId] = useState('');
   const [className, setClassName] = useState('');
+  const [uploadError, setUploadError] = useState(null); // State for handling upload errors
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
+  
   const fileInputRef = useRef();
 
   const url = 'https://i.postimg.cc/4xHqv6qc/octa-1.jpg';
 
+  
   useEffect(() => {
     const getImage = async () => {
       if (file) {
-        const data = new FormData();
-        data.append("name", file.name);
-        data.append("file", file);
-        // -------------------------------
-        data.append("className", className);
-        data.append("pin",passkey);
+        try{
+          const data = new FormData();
+          data.append("name", file.name);
+          data.append("file", file);
+          data.append("className", className);
+          data.append("pin",passkey);
+  
+          const response = await uploadFile(data);
+          // setResult(response.path);
+          setUploadSuccess(`Uploaded Successfully to ${className}`); // Set upload success
 
-        const response = await uploadFile(data);
-        setResult(response.path);
+        }catch(error){
+          setUploadError('Upload Failed, Please try again.');
+        }
       }
-    }
+    };
     getImage();
   }, [file])
 
@@ -56,7 +65,7 @@ function Upload() {
           id="teacherId"
           value={teacherId}
           onChange={(e) => setTeacherId(e.target.value)}
-          placeholder='Enter your Teacher Id'
+          placeholder='Enter your Id'
         />
         <input
           type="text"
@@ -74,6 +83,12 @@ function Upload() {
         />
         
         <button onClick={() => onUploadClick()}>Upload File</button>
+        {uploadError && (
+        <p className={`error-message ${uploadError ? 'show' : ''}`}>{uploadError}</p>
+        )}
+        {uploadSuccess && (
+          <p className={`success-message ${uploadSuccess ? 'show' : ''}`}>{uploadSuccess}</p>
+        )}
         <input
           type="file"
           ref={fileInputRef}
