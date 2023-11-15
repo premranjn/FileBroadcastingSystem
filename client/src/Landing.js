@@ -13,7 +13,7 @@ function Landing() {
   // const isHomePage = location.pathname === '/';
 
   return (
-    <div className='landing-container'>
+    <div className='landing-container' >
       <img src={url} className='background-img' alt='Digital Art Background' />
       <div className='navbar'>
         {/* {!isHomePage && <Link to="/">Home</Link>} */}
@@ -27,7 +27,7 @@ function Landing() {
       <div className='content-wrapper'>
         <h1>Welcome to Our Digital World</h1>
         <p>Explore the possibilities with our digital platform.</p>
-        <button className='login-button'>Login</button>
+        <Link to ="/login"><button className='login-button'>Login</button></Link>
       </div>
     </div>
   );

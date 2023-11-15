@@ -4,9 +4,27 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
+import { Container, Row, Col } from "react-bootstrap";
+import './Login.css';
+import { getDatabase, get, ref, child } from "firebase/database"
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB3uBQQjemaS87oKxxZXuk8ZKB59OeqQeU",
+  authDomain: "react-auth-1c49e.firebaseapp.com",
+  projectId: "react-auth-1c49e",
+  storageBucket: "react-auth-1c49e.appspot.com",
+  messagingSenderId: "237217792286",
+  appId: "1:237217792286:web:43c5b48719d6b1da84c90f"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase();
+const dbref = ref(db);
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
@@ -17,7 +35,33 @@ const Login = () => {
     setError("");
     try {
       await logIn(email, password);
-      navigate("/home");
+
+
+      const userRef = child(dbref, 'users/' + name);
+    
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          const user = snapshot.val();
+          console.log("User data:", user);
+          
+          console.log(user.userName);
+          localStorage.setItem("user-info", JSON.stringify({
+            username: user.userName,
+            email: user.email,
+            role: user.role
+          }));
+          
+          navigate("/");
+        } else {
+          console.log("Data does not exist at the specified path.");
+        }
+      }).catch((error) => {
+        alert(error.message);
+        console.log(error.code);
+        console.log(error.message);
+      });
+      
+
     } catch (err) {
       setError(err.message);
     }
@@ -27,15 +71,26 @@ const Login = () => {
     e.preventDefault();
     try {
       await googleSignIn();
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       console.log(error.message);
     }
   };
 
   return (
-    <>
-      <nav className="navbar bg-body-tertiary">
+    <>  
+    <body style = {{    
+    backgroundColor: '#fafafa',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    height: '100vh'}}>
+    <Container style = {{ width: "400px", backgroundColor: "#fafafa"}}>
+        <Row>
+          <Col>
+          <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
       <a className="navbar-brand" href="/">
       <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" className="d-inline-block align-text-top" />
@@ -55,6 +110,14 @@ const Login = () => {
             />
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Control
+              type="text"
+              placeholder="Username"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Control
               type="password"
@@ -68,7 +131,7 @@ const Login = () => {
               Log In
             </Button>
             <div className="w-100 text-center mt-1">
-              <Link to="/forgot-password">Forgot password?</Link>
+              <Link to="/forgotPassword">Forgot password?</Link>
             </div>
           </div>
         </Form>
@@ -81,9 +144,13 @@ const Login = () => {
           />
         </div>
       </div>
-      <div className="p-4 box mt-3 text-center">
+      <div className="p-4 mt-3 text-center">
         Don't have an account? <Link to="/signup">Sign up</Link>
       </div>
+          </Col>
+        </Row>
+      </Container>
+    </body>
     </>
   );
 };

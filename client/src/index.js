@@ -9,7 +9,11 @@ import Download from './Download';
 import Landing from './Landing';
 import Relation from './RelationManager';
 import reportWebVitals from './reportWebVitals';
-
+import Home from './components/Home'
+import Login from './components/Login'
+import SignUp from './components/SignUp'
+import ForgotPassword from './components/ForgotPassword'
+import { UserAuthContextProvider } from "./context/UserAuthContext";
 
 
 const root = createRoot(document.getElementById('root'));
@@ -18,12 +22,17 @@ const root = createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Router>
+      <UserAuthContextProvider>
       <Routes> {/* Wrap your Routes in a Routes component */}
         <Route path="/" element={<Landing />} />
         <Route path="/relation" element={<Relation />} />
         <Route path="/download" element={<Download />} />
         <Route path="/upload" element={<Upload />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
       </Routes>
+      </UserAuthContextProvider>
     </Router>
   </React.StrictMode>,
 );

@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
+import { Container, Row, Col } from "react-bootstrap";
+import './Login.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +27,20 @@ const ForgotPassword = () => {
 
   return (
     <>
-      <nav className="navbar bg-body-tertiary">
+        <body style = {{    
+    backgroundColor: '#fafafa',
+    display: 'flex',
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: '100%',
+    alignItems: 'center',
+    height: '100vh'}}>
+
+      <Container style = {{ width: "400px", backgroundColor: "#fafafa"}}>
+        <Row>
+          <Col>
+
+          <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
       <a className="navbar-brand" href="/">
       <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" className="d-inline-block align-text-top" />
@@ -56,6 +71,10 @@ const ForgotPassword = () => {
           </div>
         </Form>
       </div>
+          </Col>
+        </Row>
+      </Container>
+    </body>
     </>
   );
 };
