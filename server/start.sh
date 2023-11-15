@@ -1,6 +1,6 @@
 #!/bin/bash
 
-until nc -v -z -w30 db 3306; do
+until nc -z db 3306; do
     echo "waiting"
     sleep 5
 done

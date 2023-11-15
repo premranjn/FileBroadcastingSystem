@@ -2,3 +2,4 @@ server/uploads/
 server/node_modules/
 client/node_modules/
 server/.env
+data
