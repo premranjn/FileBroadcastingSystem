@@ -60,7 +60,7 @@ const Login = () => {
             role: user.role
           }));
 
-          if(user.role == "Professor")
+          if(user.role === "professor")
           {
             navigate("/relation");
           }
