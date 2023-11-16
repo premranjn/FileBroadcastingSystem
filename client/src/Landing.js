@@ -2,7 +2,6 @@ import React from 'react';
 import './Landing.css'; // You can create a CSS file for styling
 import { Link, useLocation } from 'react-router-dom';
 
-
 function Landing() {
   const url = 'https://i.postimg.cc/nzkCCkrq/IMG-20230905-101613-02-2.jpg';
   // const url = 'https://i.postimg.cc/qRBy8T8D/NITT.png';

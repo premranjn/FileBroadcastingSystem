@@ -2,17 +2,16 @@ import request from 'superagent';
 import { files, permissions } from '../models/sequelize.js';
 import { checkUser } from '../utils/upload.js';
 
-async function verifyAndFetchFile(req, res) {
+async function verifyAndFetchFile(req, res, next) {
     try {
-        // permission - class, username
-        //  if(permission)
-                // use files to find link using className, pin
-                // download link
-        console.log(req.body);
+        const userInfo = request.body.userInfo;
+        if (userInfo === null) {
+            return response.status(401).json({message: 'log in to access this page'});
+        }
+
         const userId = await checkUser(req.body.studentId);
         const className = req.body.className;
         const passKey = req.body.passkey;
-        console.log(userId,className);
 
         const permitted = await permissions.findOne({
             where: {
@@ -41,9 +40,6 @@ async function verifyAndFetchFile(req, res) {
         res.set('Content-Type', 'application/octet-stream');
         res.set('Content-Disposition', `attachment; filename=file`);
         request.get(data.link).pipe(res);
-
-        
-
     } catch (err) {
         console.log(err);
         return res.status(500).json({message: 'something went wrong'});

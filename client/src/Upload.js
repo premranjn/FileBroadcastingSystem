@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
 import { uploadFile } from './service/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function Upload() {
@@ -28,6 +28,9 @@ function Upload() {
           data.append("file", file);
           data.append("className", className);
           data.append("pin",passkey);
+
+          const userInfo = JSON.parse(localStorage.getItem('user-info'));
+          data.append("userInfo", userInfo.role );
   
           const response = await uploadFile(data);
           // setResult(response.path);
@@ -43,6 +46,12 @@ function Upload() {
 
   const onUploadClick = () => {
     fileInputRef.current.click();
+  }
+
+  const navigate = useNavigate();
+  const userInfo = localStorage.getItem('user-info');
+  if (userInfo === null) {
+    navigate('/login');
   }
 
   return (

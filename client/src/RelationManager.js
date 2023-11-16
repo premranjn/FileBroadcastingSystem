@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Relation() {
@@ -10,7 +10,11 @@ function Relation() {
   const [uploadError, setUploadError] = useState(null); // State for handling upload errors
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
-
+  const navigate = useNavigate();
+  const userInfo = localStorage.getItem('user-info');
+  if (userInfo === null) {
+    navigate('/login');
+  }
 
   // const url = 'https://scontent-bom1-1.xx.fbcdn.net/v/t39.30808-6/277465105_2132765590207385_4886455866660821286_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DaMUEGOZiiEAX8vK_7Y&_nc_ht=scontent-bom1-1.xx&oh=00_AfDrR1HhB3bYbdwn6ojVfwlemYHAGTInToWtZCLBVM2-Jw&oe=65578841';
   // const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
@@ -18,15 +22,17 @@ function Relation() {
 
   const updateRelation = async () => {
     try {
+      const userInfo = JSON.parse(localStorage.getItem('user-info')).role;
         const response = await axios.post('http://localhost:8000/manage', {
           className,
           userId,
+          userInfo,
         });
         setUploadSuccess(`${userId} Successfully added to ${className}`); // Set upload success
         console.log('Backend Response', response.data);
 
     }catch(error){
-      console.log('Error Updating Relation to backedn', error);
+      console.log('Error Updating Relation to backend', error);
       setUploadError('Operation Failed, Please try again.');
     }
   }

@@ -1,7 +1,11 @@
 import { permissions, userDetails } from '../models/sequelize.js';
 
-async function checkAndAddUser(req, res) {
+async function checkAndAddUser(req, res, next) {
     try {
+        if (req.body.userInfo !== 'professor') {
+            return res.status(401).json({message: 'only professors are allowed to access this page'});
+        }
+
         const newUser = {
             username: req.body.userId,
             role: 'student'

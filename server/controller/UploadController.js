@@ -6,13 +6,29 @@ import { files } from '../models/sequelize.js';
 
 dotenv.config();
 
-export const uploadImage = async (request, response) => {
+export const uploadImage = async (request, response, next) => {
     const fileObj = {
         path: request.file.path,
         name: request.file.originalname,
     };
     
     try {
+        const userInfo = request.body.userInfo;
+        if (userInfo === null) {
+            return response.status(401).json({message: 'log in to access this page'});
+        }
+
+        const isPresent = await files.findOne({
+            where: {
+                className: request.body.className,
+                pin: request.body.pin
+            },
+            attributes: ['id']
+        });
+        if (isPresent !== null) {
+            return response.status(400).json({message: 'File with this pin already exists in tis class, try different pin'});
+        }
+
         const file = await File.create(fileObj); //saves to db
 
         const newFile = {
@@ -30,7 +46,7 @@ export const uploadImage = async (request, response) => {
     }
 }
 
-export const getImage = async (request, response) => {
+export const getImage = async (request, response, next) => {
     try {   
         const file = await File.findById(request.params.fileId);
         

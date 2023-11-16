@@ -28,5 +28,3 @@ services:
     restart: always
     env_file:
       - ./server/.env
-    volumes:
-      - ./server:/usr/app

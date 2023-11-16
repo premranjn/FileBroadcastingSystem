@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './Upload.css';
 import { uploadFile } from './service/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -15,10 +15,12 @@ function Download() {
   
   const handleDownload = async () => {
     try{
+      const userInfo = JSON.parse(localStorage.getItem('user-info')).role;
       const response = await axios.post('http://localhost:8000/download',{
         studentId,
         className,
         passkey,
+        userInfo,
       },{
         responseType: 'arraybuffer', // or 'blob'
       });
@@ -32,8 +34,6 @@ function Download() {
       downloadLink.click();
       
       document.body.removeChild(downloadLink);
-      console.log(1);
-      console.log(2);
       setDownloadSuccess('Download Successful :) Check your download directory.');
       setDownloadError(null);
 
@@ -47,7 +47,11 @@ function Download() {
   // const url = 'https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg';
   const url = 'https://scontent.fmaa8-1.fna.fbcdn.net/v/t1.6435-9/117889307_1671835459633736_2521845204123450989_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=4dc865&_nc_ohc=7j73ThyoyeEAX8JX_pm&_nc_ht=scontent.fmaa8-1.fna&oh=00_AfA1hqpxvsf5p8z2rKu1bLy72Ykysdde0OFTrYtZmDwn1Q&oe=657955D5'
   
-  
+  const navigate = useNavigate();
+  const userInfo = localStorage.getItem('user-info');
+  if (userInfo === null) {
+    navigate('/login');
+  }
   
   return (
     <div className='container'>
