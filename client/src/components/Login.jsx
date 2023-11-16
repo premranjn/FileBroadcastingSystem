@@ -85,6 +85,7 @@ const Login = () => {
         margin: 0,
         padding: 0,
         backgroundImage: 'url("https://miro.medium.com/v2/resize:fit:1400/1*57BSpJqbnKSAF7t7CHAfTA.jpeg")',
+        position: 'absolute',
         backgroundSize: 'cover',
         // background: 'rgba(255, 255, 255, 0.7)',
         backgroundrepeat: 'no-repeat',
@@ -93,34 +94,88 @@ const Login = () => {
         alignContent: 'center',
         width: '100%',
         alignItems: 'center',
-        height: '70%'
+        height: '100%'
 
       }}>
 
-        <Container style={{ width: "400px", backgroundColor: "#fafafa" }}>
-          <Row>
-            <Col>
-              <nav className="navbar bg-body-tertiary">
-                <div className="container-fluid">
-                  <a className="navbar-brand" href="/">
+
+
+        <Container style={{
+          width: "500px",
+          height: "500px",
+          // backgroundColor: "#fafafa",
+          background: 'rgba(255, 255, 255, 0.7)',
+          margin: 'auto',
+          borderRadius: '15px',
+
+
+          // height: '7',
+        }}>
+          <Row style={{
+            width: "410px",
+            // backgroundColor: "#fafafa",
+            background: 'rgba(255, 255, 255, 0.7)',
+            margin: 'auto',
+            // right: '10%',
+            borderRadius: '15px',
+
+
+            // height: '7',
+          }}>
+            <Col style={{
+              // margin: 'auto',
+              right: '50px',
+
+            }}>
+              <nav className="navbar bg-body-tertiary" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
+                <div className="container-fluid" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
+                  <a className="navbar-brand" href="/" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
                     {/* <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" className="d-inline-block align-text-top" /> */}
                     {/* Bootstrap */}
                   </a>
                 </div>
               </nav>
-              <div className="p-4 box">
-                <h2 className="mb-3">Firebase Auth Login</h2>
+              <div className="p-4 box" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }} >
+                <h2 className="mb-3" >Firebase Auth Login</h2>
                 {error && <Alert variant="danger">{error}</Alert>}
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form onSubmit={handleSubmit} style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
+                  <Form.Group className="mb-3" controlId="formBasicEmail" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
                     <Form.Control
                       type="email"
                       placeholder="Email address"
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)} 
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Group className="mb-3" controlId="formBasicEmail" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
                     <Form.Control
                       type="text"
                       placeholder="Username"
@@ -128,7 +183,7 @@ const Login = () => {
                     />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                  <Form.Group className="mb-3" controlId="formBasicPassword" >
                     <Form.Control
                       type="password"
                       placeholder="Password"
@@ -136,7 +191,11 @@ const Login = () => {
                     />
                   </Form.Group>
 
-                  <div className="d-grid gap-2">
+                  <div className="d-grid gap-2" style={{ 
+                        margin: 'auto',
+                        // right: '10%',
+
+          }}>
                     <Button variant="primary" type="Submit">
                       Log In
                     </Button>

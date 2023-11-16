@@ -27,32 +27,68 @@ const ForgotPassword = () => {
 
   return (
     <>
-        <body style = {{    
-    backgroundColor: '#fafafa',
-    display: 'flex',
-    justifyContent: 'center',
-    alignContent: 'center',
-    width: '100%',
-    alignItems: 'center',
-    height: '100vh'}}>
+        <body style = {{
+        margin: 'auto',
+        padding: 0,
+        backgroundImage: 'url("https://i.pinimg.com/originals/d8/0f/97/d80f97761d71e3f49588d9d2aa18ae58.jpg")',
+        position: 'absolute',
+        backgroundSize: '1920px 1080px',
+        // background: 'rgba(255, 255, 255, 0.7)',
+        backgroundrepeat: 'no-repeat',
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        width: '100%',
+        alignItems: 'center',
+        height: '100%'
+        }}>
 
-      <Container style = {{ width: "400px", backgroundColor: "#fafafa"}}>
+      <Container style = {{ width: "500px",
+          position: 'realtive',
+          top: '40%',
+          height: "400px",
+          // backgroundColor: "#fafafa",
+          background: 'rgba(255, 255, 255, 0.5)',
+          margin: 'auto',
+          borderRadius: '15px',}}>
         <Row>
           <Col>
 
           <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
       <a className="navbar-brand" href="/">
-      <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" className="d-inline-block align-text-top" />
-      Bootstrap
+      Home
       </a>
       </div>
       </nav>
-      <div className="p-4 box">
+      <div className="p-4 box" style={{
+            width: "200px",
+            // backgroundColor: "#fafafa",
+            background: 'rgba(255, 255, 255, 0.7)',
+            margin: 'auto',
+            // right: '10%',
+            borderRadius: '15px',
+
+
+            // height: '7',
+          }}> 
         <h2 className="mb-3 text-center">Password Reset</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         {message && <Alert variant="success">{message}</Alert>}
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} style={{
+            position: 'absolute',
+            width: "410px",
+            // backgroundColor: "#fafafa",
+            background: 'rgba(255, 255, 255, 0.2)',
+            right : '39%',
+            top : '30%',
+            margin: 'auto',
+            // right: '10%',
+            borderRadius: '15px',
+
+
+            // height: '7',
+          }} >
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Control
               type="email"
@@ -66,7 +102,7 @@ const ForgotPassword = () => {
               Reset
             </Button>
             <div className="w-100 text-center mt-1">
-              <Link to="/Home">Login</Link>
+              <Link to="/">Login</Link>
             </div>
           </div>
         </Form>

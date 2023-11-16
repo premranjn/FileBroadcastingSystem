@@ -22,7 +22,7 @@ function Landing() {
         <Link to="/login">Login</Link>
       </div>
       <div className='content-wrapper'>
-        <h1>Welcome to Our Digital World</h1>
+        <h1>Welcome to  Digi ShareNITT</h1>
         <p>Explore Sharing with immense possibilities with our digital platform.</p>
         <Link to ="/login"><button className='login-button'>Login</button></Link>
       </div>
