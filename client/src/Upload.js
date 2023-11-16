@@ -12,6 +12,7 @@ function Upload() {
   const [className, setClassName] = useState('');
   const [uploadError, setUploadError] = useState(null); // State for handling upload errors
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  // const [pinExist, setPinExist] = useState(false);
 
   
   const fileInputRef = useRef();
@@ -34,10 +35,24 @@ function Upload() {
   
           const response = await uploadFile(data);
           // setResult(response.path);
-          setUploadSuccess(`Uploaded Successfully to ${className}`); // Set upload success
+          console.log(response);
+          if(response.code === 400){
+            setUploadError(`Pin Already Exists!!!`);
+          }
+          else
+          {
+            setUploadSuccess(`Uploaded Successfully to ${className}`); // Set upload success
+
+          }
 
         }catch(error){
-          setUploadError('Upload Failed, Please try again.');
+          // console.log(error);
+          // if(error.code == 400){
+          //   setUploadError(`Pin Already Exists!!!`);
+          // }
+          // else{
+            setUploadError('Oops..Upload Failed, Check Credentials :(');
+          // }
         }
       }
     };
@@ -64,7 +79,7 @@ function Upload() {
         <Link to="/download">Download</Link>
         <Link to="/relation">Relation</Link>
         <Link to="/login">Login</Link>
-        <button className='signoutBtn'> logout </button>
+        {/* <button className='signoutBtn'> logout </button> */}
       </div>
       <div className='wrapper'>
         <h1>Upload!</h1>
