@@ -37,6 +37,14 @@ const Login = () => {
     try {
       await logIn(email, password);
 
+      Notification.requestPermission().then(perm => {
+        if(perm === "granted") {
+          const notification = new Notification("You are logged IN" , {
+            data: {hello: "Logged IN"},
+            icon: "fire.png"
+          })
+        }
+      })
 
       const userRef = child(dbref, 'users/' + name);
 
@@ -52,7 +60,14 @@ const Login = () => {
             role: user.role
           }));
 
-          navigate("/upload");
+          if(user.role == "Professor")
+          {
+            navigate("/relation");
+          }
+          else
+          {
+            navigate("/download")
+          }
         } else {
           console.log("Data does not exist at the specified path.");
         }

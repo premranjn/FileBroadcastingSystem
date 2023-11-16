@@ -42,7 +42,7 @@ const Signup = () => {
         email: email,
         role: role
       });
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     }

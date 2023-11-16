@@ -64,6 +64,7 @@ function Upload() {
         <Link to="/download">Download</Link>
         <Link to="/relation">Relation</Link>
         <Link to="/login">Login</Link>
+        <button className='signoutBtn'> logout </button>
       </div>
       <div className='wrapper'>
         <h1>Upload!</h1>
