@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
 import router from './routes/routes.js';
 import MongoDBConnection from './utils/db.js';
-import dotenv from 'dotenv';
 
 dotenv.config();
 
