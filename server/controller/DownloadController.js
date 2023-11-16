@@ -4,7 +4,7 @@ import { checkUser } from '../utils/upload.js';
 
 async function verifyAndFetchFile(req, res, next) {
     try {
-        const userInfo = request.body.userInfo;
+        const userInfo = req.body.userInfo;
         if (userInfo === null) {
             return response.status(401).json({message: 'log in to access this page'});
         }
